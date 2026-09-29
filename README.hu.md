@@ -257,7 +257,7 @@ A támogatás segíti a további hardveres kísérleteket, fejlesztést, tesztel
 
 ### ❤️ uLAN Cable Tester támogatása
 
-**[Támogatás / Donation](YOUR-DONATION-LINK)**
+**[Támogatás / Donation](https://github.com/sponsors/gali-master)**
 
 Köszönöm!
 
