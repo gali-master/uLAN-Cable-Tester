@@ -257,7 +257,7 @@ Your support helps with further hardware experiments, development, testing and d
 
 ### ❤️ Support uLAN Cable Tester
 
-**[Donate / Support the project](YOUR-DONATION-LINK)**
+**[Donate / Support the project](https://github.com/sponsors/gali-master)**
 
 Thank you!
 
