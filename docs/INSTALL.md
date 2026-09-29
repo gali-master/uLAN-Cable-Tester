@@ -6,7 +6,9 @@ Before installing anything, check that the hardware is suitable for this project
 
 ### 1. Check the uConsole hardware
 
-This project requires the appropriate uConsole AIO v2 hardware configuration and ribbon cable.
+This project requires the **uConsole AIO v2 hardware, a dedicated CM4-compatible replacement mainboard, and the required ribbon cable**.
+
+The ribbon cable cannot be connected to the original uConsole mainboard. The replacement CM4-compatible mainboard is a required part of the hardware setup.
 
 The Ethernet interface used by the tester must be available as `eth0`.
 
@@ -96,7 +98,9 @@ A telepítés előtt először ellenőrizd, hogy a hardver megfelel-e a projekt 
 
 ### 1. A uConsole hardver ellenőrzése
 
-A projekt használatához a megfelelő uConsole AIO v2 hardverkonfiguráció és szalagkábel szükséges.
+A projekt használatához **uConsole AIO v2 hardver, egy speciális CM4-kompatibilis csere-alaplap és a szükséges szalagkábel** szükséges.
+
+A szalagkábel az eredeti uConsole alaplaphoz nem csatlakoztatható, ezért a CM4-kompatibilis csere-alaplap a hardverkonfiguráció kötelező része.
 
 A tesztelő által használt Ethernet interfésznek `eth0` néven elérhetőnek kell lennie.
 

@@ -50,9 +50,9 @@ There are two important things to check before installing the software.
 
 ### 1. Does your uConsole have the required hardware?
 
-This project requires the **uConsole AIO v2 / corresponding mainboard and ribbon-cable configuration** used during development and testing.
+This project requires the **uConsole AIO v2 hardware, a dedicated CM4-compatible replacement mainboard, and the required ribbon cable** used during development and testing.
 
-The original/base hardware configuration is not sufficient for this project.
+The original uConsole mainboard is not sufficient for this project and does not provide a connector for the required ribbon cable.
 
 The hardware section below shows the required configuration.
 
@@ -80,9 +80,11 @@ If you get a different value, **do not assume that the tester will work**. The d
 
 ## The hardware requirement
 
-The Ethernet part of the uConsole hardware is important here. The project was developed and tested with the **AIO v2 hardware and the required ribbon-cable configuration**.
+The Ethernet part of the uConsole hardware is important here. The project was developed and tested with the **AIO v2 hardware, a dedicated CM4-compatible replacement mainboard, and the required ribbon cable**.
 
-If your uConsole does not have the required hardware, installing the software will not make the Ethernet diagnostic functionality available.
+The ribbon cable cannot be connected to the original uConsole mainboard. The replacement CM4-compatible mainboard is therefore a required part of the hardware setup.
+
+If your uConsole does not have this hardware configuration, installing the software will not make the Ethernet diagnostic functionality available.
 
 ![AIO v2 adapter board and ribbon cable](images/hardware-aio-v2-adapterboard-ribbon-before-installation.png)
 
@@ -257,7 +259,7 @@ Your support helps with further hardware experiments, development, testing and d
 
 ### ❤️ Support uLAN Cable Tester
 
-**[Donate / Support the project](YOUR-DONATION-LINK)**
+**[Donate / Support the project](https://github.com/sponsors/gali-master)**
 
 Thank you!
 

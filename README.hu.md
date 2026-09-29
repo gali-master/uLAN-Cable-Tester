@@ -50,9 +50,9 @@ Két dolgot érdemes ellenőrizni még a telepítés előtt.
 
 ### 1. Megvan a szükséges uConsole hardver?
 
-A projekthez a fejlesztés és tesztelés során használt **uConsole AIO v2 / megfelelő alaplap- és szalagkábel-konfiguráció** szükséges.
+A projekthez a fejlesztés és tesztelés során használt **uConsole AIO v2 hardver, egy speciális CM4-kompatibilis csere-alaplap és a szükséges szalagkábel** szükséges.
 
-Az eredeti / alap hardverkonfiguráció önmagában nem elegendő ehhez a projekthez.
+Az eredeti uConsole alaplap önmagában nem elegendő ehhez a projekthez, és a szükséges szalagkábel sem csatlakoztatható hozzá.
 
 Az alábbi hardverfotók megmutatják a használt konfigurációt.
 
@@ -80,9 +80,11 @@ Ha más értéket kapsz, ne feltételezd, hogy a teszter működni fog. A diagno
 
 ## A hardverkövetelmény
 
-Itt fontos az uConsole Ethernet hardvere. A projektet a **AIO v2 hardverrel és a hozzá tartozó szalagkábel-konfigurációval** fejlesztettem és teszteltem.
+Itt különösen fontos az uConsole Ethernet hardvere. A projektet a **AIO v2 hardverrel, egy speciális CM4-kompatibilis csere-alaplappal és a szükséges szalagkábellel** fejlesztettem és teszteltem.
 
-Ha a uConsole-ban nincs meg a szükséges hardver, a szoftver telepítése önmagában nem fogja működőképessé tenni az Ethernet diagnosztikai funkciót.
+A szalagkábel az eredeti uConsole alaplaphoz nem csatlakoztatható. Ezért a CM4-kompatibilis csere-alaplap a működő hardverkonfiguráció kötelező része.
+
+Ha a uConsole-ban nincs meg ez a hardverkonfiguráció, a szoftver telepítése önmagában nem fogja működőképessé tenni az Ethernet diagnosztikai funkciót.
 
 ![AIO v2 adapterpanel és szalagkábel](images/hardware-aio-v2-adapterboard-ribbon-before-installation.png)
 
