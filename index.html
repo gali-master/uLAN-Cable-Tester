@@ -1,86 +1,482 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>uLAN Cable Tester – Ethernet Cable Tester for ClockworkPi uConsole</title>
 <meta name="description" content="Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY, MDIO and ECD/TDR diagnostics.">
-<meta name="keywords" content="uLAN Cable Tester, uConsole cable tester, ClockworkPi uConsole, AIO v2, HackerGadgets, BCM54213PE, Ethernet cable tester, LAN cable tester, MDIO, ECD TDR">
 <link rel="canonical" href="https://gali-master.github.io/uLAN-Cable-Tester/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="uLAN Cable Tester – Ethernet Cable Tester for ClockworkPi uConsole">
-<meta property="og:description" content="Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY.">
+<meta property="og:title" content="uLAN Cable Tester">
+<meta property="og:description" content="Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY and MDIO/ECD-TDR diagnostics.">
 <meta property="og:url" content="https://gali-master.github.io/uLAN-Cable-Tester/">
 <meta property="og:image" content="https://gali-master.github.io/uLAN-Cable-Tester/images/cable-test-measurement.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="uLAN Cable Tester">
-<meta name="twitter:description" content="Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2.">
-<meta name="twitter:image" content="https://gali-master.github.io/uLAN-Cable-Tester/images/cable-test-measurement.png">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"uLAN Cable Tester","description":"Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY, MDIO and ECD/TDR diagnostics.","url":"https://gali-master.github.io/uLAN-Cable-Tester/","codeRepository":"https://github.com/gali-master/uLAN-Cable-Tester","programmingLanguage":["Python","C","Shell"],"license":"https://opensource.org/licenses/MIT","author":{"@type":"Person","name":"István"}}
-</script>
-<style>
-:root{--bg:#0b0f14;--panel:#121922;--panel2:#18222d;--text:#e8edf2;--muted:#a9b5c1;--line:#2a3744;--accent:#5ab0ff;--accent2:#8bd3ff;--max:1120px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--accent2)}a:hover{color:#fff}.wrap{max-width:var(--max);margin:auto;padding:0 22px}
-header{padding:72px 0 58px;border-bottom:1px solid var(--line);background:radial-gradient(circle at 75% 20%,rgba(90,176,255,.16),transparent 35%),linear-gradient(180deg,#111923 0%,var(--bg) 100%)}
-.eyebrow{color:var(--accent2);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.82rem}h1{font-size:clamp(2.6rem,7vw,5.2rem);line-height:1.02;margin:12px 0 18px;letter-spacing:-.04em}.lead{max-width:850px;color:#cbd5df;font-size:1.2rem}
-.buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.button{display:inline-block;padding:11px 17px;border-radius:8px;text-decoration:none;font-weight:700;border:1px solid var(--line);background:var(--panel2)}.button.primary{background:var(--accent);color:#071018;border-color:var(--accent)}
-main{padding:54px 0}section{margin:0 0 58px}h2{font-size:2rem;line-height:1.2;margin:0 0 18px}h3{font-size:1.2rem;margin-bottom:8px}p{max-width:900px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}.card strong{display:block;margin-bottom:5px}
-.photo{width:100%;height:auto;display:block;border-radius:10px;border:1px solid var(--line);background:#080b0f}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.caption{color:var(--muted);font-size:.92rem;margin-top:7px}
-pre{overflow-x:auto;background:#070a0e;border:1px solid var(--line);border-radius:10px;padding:16px;color:#d8e5ef}.note{border-left:4px solid var(--accent);background:var(--panel);padding:16px 20px;border-radius:0 9px 9px 0}
-footer{border-top:1px solid var(--line);padding:34px 0 48px;color:var(--muted);font-size:.94rem}@media(max-width:800px){.grid,.gallery{grid-template-columns:1fr}header{padding-top:48px}}
-</style>
-</head>
-<body>
-<header><div class="wrap">
-<div class="eyebrow">Open-source hardware / software project</div>
-<h1>uLAN Cable Tester</h1>
-<p class="lead">An experimental Ethernet cable tester built around the ClockworkPi uConsole AIO v2 hardware and the Broadcom BCM54213PE PHY.</p>
-<p class="lead">It can estimate individual cable-pair lengths and identify several basic wiring, open and short-related conditions without requiring another Ethernet device at the far end.</p>
-<div class="buttons">
-<a class="button primary" href="https://github.com/gali-master/uLAN-Cable-Tester">View the GitHub repository</a>
-<a class="button" href="https://github.com/gali-master/uLAN-Cable-Tester/blob/main/docs/INSTALL.md">Installation guide</a>
-<a class="button" href="https://github.com/sponsors/gali-master">Support the project</a>
-</div></div></header>
-<main class="wrap">
-<section><img class="photo" src="images/cable-test-measurement.png" alt="uLAN Cable Tester measuring an Ethernet cable with a uConsole"></section>
-<section><h2>What is it?</h2>
-<p>The uLAN Cable Tester is a practical experiment in using diagnostic functionality already present in an Ethernet PHY. Instead of relying on the standard Linux <code>ethtool --cable-test</code> interface, the project communicates directly with the PHY through MDIO and extended registers.</p>
-<div class="note"><strong>This is not a professional cable certification instrument.</strong><br>Cable length is approximate, calibration is experimental, and the PDF graph is an engineering visualisation rather than a raw laboratory-grade TDR waveform. Think of it as more than nothing, less than a professional cable analyser.</div></section>
-<section><h2>What it can do</h2><div class="grid">
-<div class="card"><strong>📏 Cable length</strong>Estimate the length of individual cable pairs.</div>
-<div class="card"><strong>🔌 Basic wiremap</strong>Provide basic wiring and pair information.</div>
-<div class="card"><strong>⚠️ Fault indication</strong>Identify several open/short-related conditions.</div>
-<div class="card"><strong>📄 PDF report</strong>Generate a bilingual measurement report.</div>
-<div class="card"><strong>🧪 PHY diagnostics</strong>Use ECD/TDR-related diagnostic functionality of the PHY.</div>
-<div class="card"><strong>🛠 Portable</strong>Run the complete tester from a uConsole.</div>
-</div></section>
-<section><h2>Required hardware</h2>
-<p>The tested configuration requires the <strong>ClockworkPi uConsole AIO v2 hardware, a dedicated CM4-compatible replacement mainboard, and the required ribbon cable</strong>. The original uConsole mainboard is not sufficient and does not provide the connector required for the ribbon cable.</p>
-<p>The tested Ethernet PHY reports:</p>
-<pre><code>cat /sys/class/net/eth0/phydev/phy_id
+<meta property="og:type" content="website">
 
-0x600d84a2</code></pre>
-<p>This corresponds to the Broadcom <strong>BCM54213PE</strong> used by the project. Other PHYs have not been validated.</p>
-<div class="gallery">
-<figure><img class="photo" src="images/hardware-aio-v2-adapterboard-ribbon-before-installation.png" alt="uConsole AIO v2 adapter board and ribbon cable"><figcaption class="caption">AIO v2 adapter board and ribbon cable.</figcaption></figure>
-<figure><img class="photo" src="images/uconsole-aio-v2-complete.png" alt="Complete ClockworkPi uConsole AIO v2"><figcaption class="caption">The tested uConsole AIO v2 hardware.</figcaption></figure>
-</div></section>
-<section><h2>How the measurement works</h2>
-<p>Linux knows about the Ethernet PHY, but on the tested hardware the standard cable test interface reports:</p>
+<style>
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    background: #ffffff;
+    color: #24292f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 28px 70px;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    margin: 0 0 8px;
+}
+h2 {
+    margin-top: 38px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #d0d7de;
+    font-size: 1.55em;
+}
+h3 { margin-top: 28px; font-size: 1.25em; }
+p { margin: 16px 0; }
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 22px auto;
+}
+a { color: #0969da; }
+blockquote {
+    margin: 18px 0;
+    padding: 2px 18px;
+    color: #57606a;
+    border-left: 4px solid #d0d7de;
+}
+code {
+    padding: .15em .3em;
+    background: #f6f8fa;
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+pre {
+    padding: 16px;
+    overflow-x: auto;
+    background: #f6f8fa;
+    border-radius: 6px;
+    border: 1px solid #d8dee4;
+}
+pre code {
+    padding: 0;
+    background: transparent;
+}
+hr {
+    height: 1px;
+    margin: 30px 0;
+    border: 0;
+    background: #d8dee4;
+}
+footer {
+    margin-top: 45px;
+    padding-top: 20px;
+    border-top: 1px solid #d0d7de;
+    color: #57606a;
+    font-size: .9em;
+}
+@media (max-width: 600px) {
+    main { padding: 25px 17px 50px; }
+    h1 { font-size: 1.85em; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "uLAN Cable Tester",
+  "description": "Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY and MDIO/ECD-TDR diagnostics.",
+  "url": "https://gali-master.github.io/uLAN-Cable-Tester/",
+  "codeRepository": "https://github.com/gali-master/uLAN-Cable-Tester",
+  "programmingLanguage": ["Python", "Shell"],
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Person",
+    "name": "gali-master"
+  }
+}
+</script>
+</head>
+
+<body>
+<main>
+
+<h1>uLAN Cable Tester</h1>
+
+<h3>A small cable tester built into a uConsole.</h3>
+
+<img src="images/cable-test-measurement.png" alt="uLAN Cable Tester measurement">
+
+<p><strong>What if your uConsole could tell you how long a LAN cable is — without anything connected to the other end?</strong></p>
+
+<p>
+That's what this project is about.
+</p>
+
+<p>
+The <strong>uLAN Cable Tester</strong> is an experimental Ethernet cable tester built around the Ethernet hardware of the <strong>ClockworkPi uConsole AIO v2</strong>.
+</p>
+
+<p>
+It can measure individual cable pairs, estimate cable length and identify several basic wiring problems — including situations where the far end of the cable is simply left open.
+</p>
+
+<p>
+And yes, the result is surprisingly useful.
+</p>
+
+<p>
+But let's be honest:
+</p>
+
+<blockquote><strong>This is not a Fluke.</strong></blockquote>
+
+<p>
+The length measurement is approximate. The calibration is experimental, results depend on the cable and hardware, and the graphical part of the PDF report is primarily an engineering visualisation — and a bit of geeky fun.
+</p>
+
+<p>
+Think of it as <strong>more than nothing, less than a professional cable analyser.</strong>
+</p>
+
+<p>
+And that's perfectly fine.
+</p>
+
+<p>
+The interesting part is that it actually works.
+</p>
+
+<hr>
+
+<h2>What can it do?</h2>
+
+<ul>
+<li>📏 Estimate the length of individual cable pairs</li>
+<li>🔌 Check basic wiring / wire-map conditions</li>
+<li>⚠️ Detect several open/short-related problems</li>
+<li>📄 Generate a detailed PDF test report</li>
+<li>🇬🇧 Run in English or 🇭🇺 Hungarian</li>
+<li>🧪 Experiment with the diagnostic capabilities of the Ethernet hardware</li>
+<li>🛠️ Run the whole thing from a portable uConsole</li>
+</ul>
+
+<p>
+The far end of the cable does <strong>not</strong> need another Ethernet device connected for the diagnostic measurement.
+</p>
+
+<p>
+No expensive dedicated cable tester is required to try the experiment — just the appropriate uConsole hardware and a willingness to see what happens when you dig a little deeper into an Ethernet chip.
+</p>
+
+<hr>
+
+<h2>Before you start</h2>
+
+<p>
+There are two important things to check before installing the software.
+</p>
+
+<h3>1. Does your uConsole have the required hardware?</h3>
+
+<p>
+This project requires the <strong>uConsole AIO v2 / corresponding mainboard and ribbon-cable configuration</strong> used during development and testing.
+</p>
+
+<p>
+The original/base hardware configuration is not sufficient for this project.
+</p>
+
+<p>
+The hardware section below shows the required configuration.
+</p>
+
+<img src="images/hardware-aio-v2-adapterboard-ribbon-before-installation.png" alt="uConsole AIO v2 adapter board and ribbon cable">
+
+<h3>2. Does your Ethernet interface use the required chip?</h3>
+
+<p>
+Before installing anything, check the Ethernet PHY detected by Linux:
+</p>
+
+<pre><code>cat /sys/class/net/eth0/phydev/phy_id</code></pre>
+
+<p>
+The tested hardware reports:
+</p>
+
+<pre><code>0x600d84a2</code></pre>
+
+<p>
+This corresponds to the <strong>Broadcom BCM54213PE</strong> used by this project.
+</p>
+
+<p>
+If you get a different value, <strong>do not assume that the tester will work</strong>. The diagnostic registers and measurement sequence are specific to the Ethernet PHY used by the project.
+</p>
+
+<hr>
+
+<h2>The hardware requirement</h2>
+
+<p>
+The Ethernet part of the uConsole hardware is important here. The project was developed and tested with the <strong>AIO v2 hardware and the required ribbon-cable configuration</strong>.
+</p>
+
+<p>
+If your uConsole does not have the required hardware, installing the software will not make the Ethernet diagnostic functionality available.
+</p>
+
+<img src="images/hardware-aio-v2-adapterboard-ribbon-before-installation.png" alt="AIO v2 adapter board and ribbon cable">
+
+<img src="images/uconsole-aio-v2-complete.png" alt="uConsole AIO v2">
+
+<blockquote>
+<strong>Hardware note:</strong> The project is documented around the hardware configuration that was actually tested. Other uConsole revisions or other Ethernet controllers may require different software and have not been validated here.
+</blockquote>
+
+<hr>
+
+<h2>Why does this work?</h2>
+
+<p>
+The Linux networking stack already knows about the Ethernet PHY. You can even ask <code>ethtool</code> to perform a cable test:
+</p>
+
+<pre><code>sudo ethtool --cable-test eth0</code></pre>
+
+<p>
+On the target hardware, however, the standard interface reports:
+</p>
+
 <pre><code>netlink error: PHY driver does not support cable testing</code></pre>
-<p>The project therefore accesses the PHY directly using MDIO and extended registers, starts the PHY's ECD/TDR measurement sequence, reads the diagnostic values and converts them to an approximate cable length using the project's experimental calibration.</p>
-<img class="photo" src="images/troubleshooting-failed-tdr-test.png" alt="Standard ethtool cable test failing because the PHY driver does not expose cable testing"></section>
-<section><h2>The measurement report</h2>
-<p>The generated PDF contains the measurement information, individual pair results and an illustrative visualisation. The current tested software uses an experimentally determined conversion factor of <strong>97.4 ticks / metre</strong>.</p>
-<img class="photo" src="images/cable-test-pdf-report.png" alt="Example uLAN Cable Tester PDF measurement report"></section>
-<section><h2>Get the project</h2><div class="grid">
-<div class="card"><h3>Source code</h3><p>Complete source code, native MDIO helpers, scripts, templates and configuration.</p><a href="https://github.com/gali-master/uLAN-Cable-Tester">GitHub repository →</a></div>
-<div class="card"><h3>Installation</h3><p>The repository contains the full installation and hardware requirements.</p><a href="https://github.com/gali-master/uLAN-Cable-Tester/blob/main/docs/INSTALL.md">Read the installation guide →</a></div>
-<div class="card"><h3>Project support</h3><p>If the project is useful to you, you can help fund further hardware experiments and development.</p><a href="https://github.com/sponsors/gali-master">GitHub Sponsors →</a></div>
-</div></section>
-<section><h2>Hardware used</h2><p>The project was developed and tested using the ClockworkPi uConsole platform and HackerGadgets AIO V2 hardware. Hardware links will be added here when official affiliate or referral links are available.</p></section>
-<section><h2>License</h2><p>The project is released under the <strong>MIT License</strong>. See the <a href="https://github.com/gali-master/uLAN-Cable-Tester/blob/main/LICENSE">LICENSE</a> file in the repository.</p></section>
+
+<img src="images/troubleshooting-failed-tdr-test.png" alt="Failed standard cable test">
+
+<p>
+So this project goes underneath that interface and communicates directly with the PHY through <strong>MDIO and extended registers</strong> to access its diagnostic functionality.
+</p>
+
+<p>
+Under the hood, the tester starts the PHY's ECD/TDR measurement sequence, reads the diagnostic values and converts them to an approximate cable length using the project's experimental calibration.
+</p>
+
+<hr>
+
+<h2>The report: useful, but also gloriously geeky</h2>
+
+<p>
+The generated PDF contains the test information, pair results and an illustrative visualisation of the measurement.
+</p>
+
+<p>
+The graph is <strong>not a raw oscilloscope trace</strong> and should not be interpreted as laboratory-grade TDR data. It is a visual representation generated from the measured result.
+</p>
+
+<p>
+In other words:
+</p>
+
+<blockquote><strong>It is an engineering experiment wrapped in a surprisingly official-looking PDF.</strong></blockquote>
+
+<img src="images/cable-test-pdf-report.png" alt="Example cable test report">
+
+<hr>
+
+<h2>Calibration</h2>
+
+<p>
+The current tested software uses an experimentally determined conversion factor of:
+</p>
+
+<pre><code>97.4 ticks / metre</code></pre>
+
+<p>
+This value was obtained from measurements on the tested hardware and cable setup. It should therefore be regarded as <strong>board- and setup-specific</strong>, not as a universal constant for every BCM54213PE implementation.
+</p>
+
+<p>
+For this reason, the reported cable length should be treated as an <strong>approximate indication</strong>, not as a certified measurement.
+</p>
+
+<hr>
+
+<h2>Installation</h2>
+
+<p>
+See the full installation guide:
+</p>
+
+<p><strong><a href="docs/INSTALL.md">Installation guide →</a></strong></p>
+
+<p>
+Basic setup on a Debian/Raspberry Pi-class Linux system:
+</p>
+
+<pre><code>sudo apt update
+sudo apt install -y python3 python3-venv build-essential
+
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+chmod +x build.sh run_cable_test_hu.sh run_cable_test_eng.sh
+./build.sh</code></pre>
+
+<p>
+Then run either:
+</p>
+
+<pre><code>./run_cable_test_hu.sh</code></pre>
+
+<p>
+or:
+</p>
+
+<pre><code>./run_cable_test_eng.sh</code></pre>
+
+<p>
+The project includes the required native MDIO helper sources and tested AArch64 binaries.
+</p>
+
+<hr>
+
+<h2>Configuration</h2>
+
+<p>
+The operator name used in the PDF report can be set in:
+</p>
+
+<pre><code>config/ulan_config.json</code></pre>
+
+<p>Example:</p>
+
+<pre><code>{
+    "operator": "Operator"
+}</code></pre>
+
+<p>
+No user-specific home-directory path is required by the project.
+</p>
+
+<hr>
+
+<h2>Project structure</h2>
+
+<pre><code>uLAN-Cable-Tester/
+├── README.md
+├── README.hu.md
+├── LICENSE
+├── build.sh
+├── requirements.txt
+├── run_cable_test_hu.sh
+├── run_cable_test_eng.sh
+├── src/
+│   ├── cable_test_core.py
+│   ├── cable_test_hu.py
+│   ├── cable_test_eng.py
+│   ├── generate_cable_report.py
+│   ├── mdio_write.c
+│   └── mdio_exp_read.c
+├── bin/
+│   ├── mdio_write
+│   └── mdio_exp_read
+├── templates/
+├── config/
+├── reports/
+└── docs/
+    └── INSTALL.md</code></pre>
+
+<p>
+Generated PDF reports are intentionally ignored by Git. The repository keeps an empty <code>reports/</code> directory so the expected output location exists after cloning.
+</p>
+
+<hr>
+
+<h2>Limitations</h2>
+
+<p>
+This project should be considered an <strong>experimental hardware/software project</strong>, not a professional cable certification tool.
+</p>
+
+<p>In particular:</p>
+
+<ul>
+<li>cable length is approximate;</li>
+<li>the calibration factor is experimental and hardware/setup dependent;</li>
+<li>the graphical report is an illustrative visualisation, not a raw TDR waveform;</li>
+<li>the measurement sequence is tied to the tested BCM54213PE implementation;</li>
+<li>other Ethernet PHYs are not supported by default;</li>
+<li>Linux and the project's MDIO access method are required;</li>
+<li>changing the hardware, PHY or board revision may require different calibration or software changes.</li>
+</ul>
+
+<p>
+Use the results as an indication and diagnostic aid, not as certified measurement data.
+</p>
+
+<hr>
+
+<h2>Support the project</h2>
+
+<p>
+If you find this project useful, interesting, or simply enjoy the idea of turning a small Ethernet interface into a rather unexpected cable tester, you can support its development.
+</p>
+
+<p>
+<strong>Any contribution is appreciated — no matter how small.</strong>
+</p>
+
+<p>
+Your support helps with further hardware experiments, development, testing and documentation.
+</p>
+
+<h3>❤️ Support uLAN Cable Tester</h3>
+
+<p>
+<strong><a href="https://github.com/sponsors/gali-master">Donate / Support the project</a></strong>
+</p>
+
+<p>Thank you!</p>
+
+<hr>
+
+<h2>Affiliate disclosure</h2>
+
+<p>
+Some hardware links associated with this project may be affiliate links. If you purchase through one of those links, I may receive a small commission at no additional cost to you.
+</p>
+
+<p>
+The project documentation and technical conclusions are based on the hardware actually tested.
+</p>
+
+<hr>
+
+<h2>License</h2>
+
+<p>
+This project is released under the <strong>MIT License</strong>.
+</p>
+
+<p>
+See <a href="LICENSE">LICENSE</a> for the full license text.
+</p>
+
+<footer>
+    <p>
+        <a href="https://github.com/gali-master/uLAN-Cable-Tester">uLAN Cable Tester on GitHub</a>
+    </p>
+</footer>
+
 </main>
-<footer><div class="wrap"><div>uLAN Cable Tester · Open-source hardware/software project</div><div><a href="https://github.com/gali-master/uLAN-Cable-Tester">GitHub</a> · <a href="https://github.com/sponsors/gali-master">GitHub Sponsors</a></div></div></footer>
-</body></html>
+</body>
+</html>
