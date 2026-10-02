@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     struct ifreq ifr;
     struct mii_ioctl_data *mii;
 
-    if (argc != 3) return 1;
+    if (argc != 3 && argc != 4) return 1;
 
     reg = strtol(argv[1], NULL, 0);
     val = strtol(argv[2], NULL, 0);
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     strcpy(ifr.ifr_name, "eth0");
 
     mii = (struct mii_ioctl_data *)&ifr.ifr_data;
-    mii->phy_id = 0;
+    mii->phy_id = (argc == 4) ? strtol(argv[3], NULL, 0) : 0;
     mii->reg_num = reg;
     mii->val_in = val;
 
