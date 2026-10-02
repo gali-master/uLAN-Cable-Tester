@@ -44,6 +44,36 @@ A kipróbálásához nincs szükség drága, különálló kábelteszterre – c
 
 ---
 
+## Raspberry Pi 4 támogatás
+
+A V2.0 verzió már Raspberry Pi 4-en is működik a **Broadcom BCM54213PE** PHY-val.
+
+A Raspberry Pi 4 tesztelt konfigurációjában a PHY MDIO-címe `1`, míg a projekt eredeti uConsole konfigurációjában `0`. A mérési algoritmus nem változott; a natív MDIO segédprogramok és a mérési mag már kezelik a PHY-címet.
+
+Raspberry Pi 4 esetén a mérés előtt:
+
+```bash
+export ULAN_PHY_ADDR=1
+```
+
+Ezután a szokásos módon indítható a mérés:
+
+```bash
+./run_cable_test_hu.sh
+```
+
+vagy:
+
+```bash
+./run_cable_test_eng.sh
+```
+
+Az uConsole esetén az alapértelmezett PHY-cím továbbra is `0`, ezért a meglévő működés változatlan marad.
+
+A Raspberry Pi 4 támogatást valós kábelen végzett méréssel és PDF jegyzőkönyv generálásával ellenőriztem.
+
+---
+
 ## Mielőtt elkezded
 
 Két dolgot érdemes ellenőrizni még a telepítés előtt.
@@ -173,7 +203,7 @@ vagy angolul:
 ./run_cable_test_eng.sh
 ```
 
-A projekt tartalmazza a szükséges natív MDIO segédprogramok forrását és a tesztelt AArch64 binárisokat.
+A projekt tartalmazza a szükséges natív MDIO segédprogramok forrását és a `build.sh` segítségével újraépíthető binárisokat. A natív binárisokat az adott célrendszeren érdemes újraépíteni.
 
 ---
 
