@@ -30,8 +30,12 @@ int mdio_write(int fd, struct ifreq *ifr, int phy, int reg, int val)
 
 int main(int argc, char **argv)
 {
-    int fd, val;
+    int fd, val, phy;
     struct ifreq ifr;
+
+    if (argc != 2 && argc != 3) return 1;
+
+    phy = (argc == 3) ? strtol(argv[2], NULL, 0) : 0;
 
     fd = socket(AF_INET, SOCK_DGRAM, 0);
     if (fd < 0) return 1;
@@ -39,10 +43,10 @@ int main(int argc, char **argv)
     memset(&ifr, 0, sizeof(ifr));
     strcpy(ifr.ifr_name, "eth0");
 
-    if (mdio_write(fd, &ifr, 0, 0x17, strtol(argv[1], NULL, 0)) < 0)
+    if (mdio_write(fd, &ifr, phy, 0x17, strtol(argv[1], NULL, 0)) < 0)
         return 2;
 
-    val = mdio_read(fd, &ifr, 0, 0x15);
+    val = mdio_read(fd, &ifr, phy, 0x15);
     if (val < 0)
         return 3;
 

@@ -19,6 +19,7 @@ from generate_cable_report import generate_report_from_measurement
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 BIN_DIR = PROJECT_ROOT / "bin"
+PHY_ADDR = os.environ.get("ULAN_PHY_ADDR", "0")
 CONFIG_FILE = PROJECT_ROOT / "config" / "ulan_config.json"
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
 REPORTS_DIR = PROJECT_ROOT / "reports"
@@ -58,14 +59,14 @@ def run(cmd, check=True, quiet=False):
 
 def mdio_write(mdio_dir, reg, value):
     run(
-        ["sudo", str(Path(mdio_dir) / "mdio_write"), str(reg), value],
+        ["sudo", str(Path(mdio_dir) / "mdio_write"), str(reg), value, PHY_ADDR],
         quiet=True,
     )
 
 
 def mdio_exp_read(mdio_dir, reg):
     out = run(
-        ["sudo", str(Path(mdio_dir) / "mdio_exp_read"), reg],
+        ["sudo", str(Path(mdio_dir) / "mdio_exp_read"), reg, PHY_ADDR],
         quiet=True,
     )
     m = re.search(r"=\s*(0x[0-9a-fA-F]+)", out)
