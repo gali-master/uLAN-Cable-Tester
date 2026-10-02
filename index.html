@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>uLAN Cable Tester – Ethernet Cable Tester for ClockworkPi uConsole</title>
-<meta name="description" content="Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY, MDIO and ECD/TDR diagnostics.">
+<title>uLAN Cable Tester – Ethernet Cable Tester for uConsole and Raspberry Pi 4</title>
+<meta name="description" content="Experimental Ethernet cable tester for ClockworkPi uConsole and Raspberry Pi 4 using the Broadcom BCM54213PE PHY, MDIO and ECD/TDR diagnostics.">
 <link rel="canonical" href="https://gali-master.github.io/uLAN-Cable-Tester/">
 <meta property="og:title" content="uLAN Cable Tester">
-<meta property="og:description" content="Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY and MDIO/ECD-TDR diagnostics.">
+<meta property="og:description" content="Experimental Ethernet cable tester for ClockworkPi uConsole and Raspberry Pi 4 using the Broadcom BCM54213PE PHY and MDIO/ECD-TDR diagnostics.">
 <meta property="og:url" content="https://gali-master.github.io/uLAN-Cable-Tester/">
 <meta property="og:image" content="https://gali-master.github.io/uLAN-Cable-Tester/images/cable-test-measurement.png">
 <meta property="og:type" content="website">
@@ -94,7 +94,7 @@ footer {
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
   "name": "uLAN Cable Tester",
-  "description": "Experimental Ethernet cable tester for ClockworkPi uConsole AIO v2 using the Broadcom BCM54213PE PHY and MDIO/ECD-TDR diagnostics.",
+  "description": "Experimental Ethernet cable tester for ClockworkPi uConsole and Raspberry Pi 4 using the Broadcom BCM54213PE PHY and MDIO/ECD-TDR diagnostics.",
   "url": "https://gali-master.github.io/uLAN-Cable-Tester/",
   "codeRepository": "https://github.com/gali-master/uLAN-Cable-Tester",
   "programmingLanguage": ["Python", "Shell"],
@@ -123,7 +123,7 @@ That's what this project is about.
 </p>
 
 <p>
-The <strong>uLAN Cable Tester</strong> is an experimental Ethernet cable tester built around the Ethernet hardware of the <strong>ClockworkPi uConsole AIO v2</strong>.
+The <strong>uLAN Cable Tester</strong> is an experimental Ethernet cable tester built around the Ethernet hardware of the <strong>ClockworkPi uConsole AIO v2</strong> and, since V2.0, the <strong>Raspberry Pi 4</strong> with the <strong>Broadcom BCM54213PE</strong> PHY.
 </p>
 
 <p>
@@ -167,7 +167,7 @@ The interesting part is that it actually works.
 <li>📄 Generate a detailed PDF test report</li>
 <li>🇬🇧 Run in English or 🇭🇺 Hungarian</li>
 <li>🧪 Experiment with the diagnostic capabilities of the Ethernet hardware</li>
-<li>🛠️ Run the whole thing from a portable uConsole</li>
+<li>🛠️ Run from a portable uConsole or Raspberry Pi 4</li>
 </ul>
 
 <p>
@@ -176,6 +176,44 @@ The far end of the cable does <strong>not</strong> need another Ethernet device 
 
 <p>
 No expensive dedicated cable tester is required to try the experiment — just the appropriate uConsole hardware and a willingness to see what happens when you dig a little deeper into an Ethernet chip.
+</p>
+
+<hr>
+
+<h2>Raspberry Pi 4 support</h2>
+
+<p>
+Version V2.0 also supports the <strong>Raspberry Pi 4</strong> with the <strong>Broadcom BCM54213PE</strong> PHY.
+</p>
+
+<p>
+In the tested Raspberry Pi 4 configuration, the PHY uses MDIO address <code>1</code>, while the original uConsole configuration uses address <code>0</code>. The measurement algorithm itself was not changed; the native MDIO helpers and measurement core now support a configurable PHY address.
+</p>
+
+<p>
+On Raspberry Pi 4, set the PHY address before running the test:
+</p>
+
+<pre><code>export ULAN_PHY_ADDR=1</code></pre>
+
+<p>
+Then run the tester normally:
+</p>
+
+<pre><code>./run_cable_test_hu.sh</code></pre>
+
+<p>
+or:
+</p>
+
+<pre><code>./run_cable_test_eng.sh</code></pre>
+
+<p>
+On the uConsole, the default PHY address remains <code>0</code>, so the existing configuration continues to work unchanged.
+</p>
+
+<p>
+Raspberry Pi 4 support was verified with a real cable measurement and PDF report generation.
 </p>
 
 <hr>
@@ -344,7 +382,7 @@ or:
 <pre><code>./run_cable_test_eng.sh</code></pre>
 
 <p>
-The project includes the required native MDIO helper sources and tested AArch64 binaries.
+The project includes the required native MDIO helper sources and a <code>build.sh</code> script to rebuild the binaries on the target system. Rebuilding the native helpers on the target platform is recommended.
 </p>
 
 <hr>
