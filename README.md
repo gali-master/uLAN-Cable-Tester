@@ -44,6 +44,36 @@ No expensive dedicated cable tester is required to try the experiment — just t
 
 ---
 
+## Raspberry Pi 4 support
+
+Version V2.0 also supports the **Raspberry Pi 4** with the **Broadcom BCM54213PE** PHY.
+
+In the tested Raspberry Pi 4 configuration, the PHY uses MDIO address `1`, while the original uConsole configuration uses address `0`. The measurement algorithm itself was not changed; the native MDIO helpers and measurement core now support a configurable PHY address.
+
+On Raspberry Pi 4, set the PHY address before running the test:
+
+```bash
+export ULAN_PHY_ADDR=1
+```
+
+Then run the tester normally:
+
+```bash
+./run_cable_test_hu.sh
+```
+
+or:
+
+```bash
+./run_cable_test_eng.sh
+```
+
+On the uConsole, the default PHY address remains `0`, so the existing configuration continues to work unchanged.
+
+Raspberry Pi 4 support was verified with a real cable measurement and PDF report generation.
+
+---
+
 ## Before you start
 
 There are two important things to check before installing the software.
@@ -175,7 +205,7 @@ or:
 ./run_cable_test_eng.sh
 ```
 
-The project includes the required native MDIO helper sources and tested AArch64 binaries.
+The project includes the required native MDIO helper sources and a `build.sh` script to rebuild the binaries on the target system. Rebuilding the native helpers on the target platform is recommended.
 
 ---
 
